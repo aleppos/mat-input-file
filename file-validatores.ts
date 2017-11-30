@@ -1,0 +1,24 @@
+import { FileInput } from './file-input';
+import { FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
+
+export class FileValidatores {
+  /**
+     * Function to control content of files
+     *
+     * @param control
+     *
+     * @returns
+     */
+  static maxContentSize(bytes: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      const size = control && control.value ? (control.value as FileInput).files.map(f => f.size).reduce((acc, i) => acc + i, 0) : 0;
+      const condition = bytes > size;
+      return condition ? null : {
+        maxContentSize: {
+          actualSize: size,
+          maxSize: bytes
+        }
+      };
+    }
+  }
+}
