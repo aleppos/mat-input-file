@@ -23,6 +23,7 @@ export class MatInputFileComponent implements OnInit, OnDestroy, MatFormFieldCon
   controlType = 'mat-file-input';
 
   private _placeholder: string;
+  private _accept: string;
   private _required = false;
 
   @Input() valuePlaceholder: string;
@@ -44,6 +45,13 @@ export class MatInputFileComponent implements OnInit, OnDestroy, MatFormFieldCon
   }
   set placeholder(plh) {
     this._placeholder = plh;
+    this.stateChanges.next();
+  }
+  @Input() get accept() {
+    return this._accept;
+  }
+  set accept(accept) {
+    this._accept = accept;
     this.stateChanges.next();
   }
 
